@@ -1,14 +1,11 @@
-import Image from "next/image";
+
 import type { Metadata } from "next";
-import Navbar from '@/components/Navbar'
 import HeroSection from '@/components/HeroSection';
 import Location from '@/components/Location';
 import ServiceMenu from '@/components/ServiceMenu';
 import HomeStats from '@/components/HomeStats';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ConsultationModal from "@/components/ConsulationModal";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
