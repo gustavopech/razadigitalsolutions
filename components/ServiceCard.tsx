@@ -21,7 +21,7 @@ export default function ServiceCard({ title, description, icon, link = '#' }: Se
         <div className="absolute p-4 opacity-0 transition-opacity group-hover:relative group-hover:opacity-100">
           <h3 className="text-lg font-semibold">{title}</h3>
           <p className="mt-2 text-sm text-gray-600">{description}</p>
-          <p className="mt-4 text-sm font-bold text-red-700">Read more</p>
+          {/*<p className="mt-4 text-sm font-bold text-red-700">Read more</p>*/}
         </div>
       </div>
     </a>
