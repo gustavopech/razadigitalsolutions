@@ -4,35 +4,35 @@ import React from 'react';
 
 const stats = [
   {
+    label: "No Digital Edge",
+    description: " of small businesses don’t use any digital marketing",
+    value: " ",
+    percent: 40,
+    source: "https://visualobjects.com/digital-marketing/blog/small-business-digital-marketing"
+  },
+  {
+    label: "Branding Matters",
+    description: " of small businesses surveyed show a lack of confidence in the effectiveness of their marketing strategy.",
+    value: " ",
+    percent: 73,
+    source: "https://news.constantcontact.com/2024-04-23-New-Research-from-Constant-Contact-Reveals-Small-Businesses-Struggle-to-Market-Effectively-Due-to-Low-Confidence,-Limited-Time,-and-Lack-of-Knowledge"
+  },
+  {
     label: "Website Impact",
-    value: "70%",
-    description: " Your website can make or break you — 70% of diners say they’ve been turned off by a restaurant's website.",
-    percent: 77,
-    source: "https://www.prnewswire.com/news-releases/survey-nearly-70-of-us-diners-say-a-restaurants-website-has-discouraged-them-from-visiting-300909229.html"
-  },
-  {
-    label: "Social Media Impact",
-    value: "65%",
-    description: " consumers feel closer to brands active on social media. Consistency and quality matter — people want to see the real humans behind your business. Showing up online builds trust and keeps your brand top of mind.",
+    description: "of U.S. Diners Say A Restaurant's Website Has Discouraged Them from Visiting",
+    value: " ",
     percent: 70,
-    source: "https://www.hubspot.com/marketing-statistics"
+    source: "https://www.restaurantdive.com/news/77-of-diners-visit-restaurant-websites-before-going-survey-finds/562008/"
   },
   {
-    label: "Cups of Coffee",
-    value: "88%",
-    description: "Late-night coding fuel",
-    percent: 88,
-    source: "https://www.ncausa.org/Research-Trends"
-  },
-  {
-    label: "Satisfied Clients",
-    value: "112",
-    description: "Businesses we’ve helped grow",
-    percent: 85,
-    source: "https://www.salesforce.com/research/customer-expectations/"
-  },
-];
-
+      label: "Be Search Ready",
+      description: "of online experiences begin with a search engine.",
+      value: " ",
+      percent: 93,
+      source: "https://www.searchenginejournal.com/seo-101/what-is-seo/"
+    },
+  ];
+  
 const ProgressRing = ({ percentage }: { percentage: number }) => {
   const radius = 60;
   const stroke = 6;
