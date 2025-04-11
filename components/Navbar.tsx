@@ -1,5 +1,5 @@
 'use client';
-
+import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConsultationModal from '@/components/ConsulationModal';
@@ -39,9 +39,9 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-background border-b backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-screen-xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="/" className="flex items-center gap-2 text-red-600 font-bold text-xl shrink-0">
+        <Link href="/" className="flex items-center gap-2 text-red-600 font-bold text-xl shrink-0">
           <img src="/test.png" alt="Raza Logo" className="h-16 w-auto object-contain" />
-        </a>
+        </Link>
 
         <nav aria-label="Global" className="hidden md:flex items-center space-x-8 text-lg font-semibold tracking-wide">
           {(Object.keys(menuItems) as MenuKey[]).map((label) => (
@@ -84,9 +84,9 @@ export default function Navbar() {
                               </svg>
                             </div>
                             <div>
-                              <a href={item.href} className="font-semibold text-gray-900">
+                              <Link href={item.href} className="font-semibold text-gray-900">
                                 {item.title}
-                              </a>
+                              </Link>
                               <p className="text-gray-700">{item.title.toLowerCase()}...</p>
                             </div>
                           </div>
