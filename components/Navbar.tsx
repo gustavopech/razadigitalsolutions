@@ -1,36 +1,38 @@
 'use client';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConsultationModal from '@/components/ConsulationModal';
+import { LocaleContext, useTranslation } from '@/translation/LocaleContext';
 
-type MenuKey = 'About' | 'Services' | 'Contact' ;
+type MenuKey = 'About' | 'Services' | 'Contact';
 
 type MenuItem = {
   title: string;
   href: string;
 };
 
-const menuItems: Record<MenuKey, MenuItem[]> = {
-  About: [
-    { title: 'Our Story', href: '/about' },
-    { title: 'Frequently Asked Questions', href: '/team' },
-  ],
-  Services: [
-    { title: 'Web Design', href: '/services/web' },
-    { title: 'SEO', href: '/services/seo' },
-    { title: 'Marketing Campaigns', href: '/services/web' },
-    { title: 'Experience Management', href: '/services/seo' },
-    { title: 'Growth Strategy', href: '/services/web' },
-    { title: 'Workflow Automation', href: '/services/seo' },
-  ],
-  Contact: [{ title: 'Email Us', href: '/contact' }],
-
-};
-
 export default function Navbar() {
   const [openFlyout, setOpenFlyout] = useState<MenuKey | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { locale, setLocale } = useContext(LocaleContext);
+  const t = useTranslation();
+
+  const menuItems: Record<MenuKey, MenuItem[]> = {
+    About: [
+      { title: t('ourStory'), href: '/about' },
+      { title: t('faq'), href: '/team' },
+    ],
+    Services: [
+      { title: t('webDesign'), href: '/services/web' },
+      { title: t('seo'), href: '/services/seo' },
+      { title: t('marketingCampaigns'), href: '/services/web' },
+      { title: t('experienceMgmt'), href: '/services/seo' },
+      { title: t('growthStrategy'), href: '/services/web' },
+      { title: t('automation'), href: '/services/seo' },
+    ],
+    Contact: [{ title: t('contact'), href: '/contact' }],
+  };
 
   const toggleFlyout = (menu: MenuKey) => {
     setOpenFlyout((prev) => (prev === menu ? null : menu));
@@ -50,7 +52,7 @@ export default function Navbar() {
                 onClick={() => toggleFlyout(label)}
                 className="inline-flex items-center gap-x-1 text-gray-950 hover:text-red-600 transition"
               >
-                <span>{label}</span>
+                <span>{t(`nav.${label.toLowerCase()}`)}</span>
                 <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path
                     fillRule="evenodd"
@@ -102,12 +104,14 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
           <ConsultationModal />
-          <a
+
+          {/* Language Toggle Button (Desktop) */}
+          <button
+            onClick={() => setLocale(locale === 'en' ? 'es' : 'en')}
             className="hidden rounded-md bg-stone-50 px-5 py-2.5 text-sm font-medium text-red-800 hover:text-red-700 md:block"
-            href="#"
           >
-            Español
-          </a>
+            {locale === 'en' ? 'Español' : 'English'}
+          </button>
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -121,20 +125,24 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isMobileOpen && (
         <div className="px-4 pb-4 md:hidden">
           <ul className="space-y-3 text-base font-medium tracking-wide">
             {(Object.keys(menuItems) as MenuKey[]).map((label) => (
               <li key={label}>
                 <a className="block text-gray-950 hover:text-red-600" href="#">
-                  {label}
+                  {t(`nav.${label.toLowerCase()}`)}
                 </a>
               </li>
             ))}
             <li>
-              <a className="block text-red-800 border border-red-800 rounded px-3 py-1" href="#">
-                Español
-              </a>
+              <button
+                onClick={() => setLocale(locale === 'en' ? 'es' : 'en')}
+                className="block text-red-800 border border-red-800 rounded px-3 py-1"
+              >
+                {locale === 'en' ? 'Español' : 'English'}
+              </button>
             </li>
           </ul>
         </div>

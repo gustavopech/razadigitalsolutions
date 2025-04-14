@@ -1,8 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/translation/LocaleContext';
 
 export default function Location() {
+  const t = useTranslation();
+
   return (
     <section className="bg-gray-50 py-16 px-6 sm:px-10">
       <motion.div
@@ -15,17 +18,17 @@ export default function Location() {
         {/* Text Content */}
         <div className="space-y-6">
           <h2 className="text-3xl font-bold text-gray-900">
-          Rooted in Los Angeles, Here to Help Wherever You Are
+            {t('location.title')}
           </h2>
           <p className="text-gray-700 text-lg">
-          From local shops to growing businesses across the U.S., our  team is here to support you with smart, practical digital solutions. Let’s connect — your first consultation is free.
+            {t('location.description')}
           </p>
 
           <a
             href="/contact"
             className="inline-block mt-2 rounded-md bg-red-800 px-6 py-3 text-white font-semibold hover:bg-red-700 transition"
           >
-            Get in Touch
+            {t('location.button')}
           </a>
         </div>
 

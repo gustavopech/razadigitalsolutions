@@ -1,38 +1,35 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from '@/translation/LocaleContext';
 
-const stats = [
+const stats = (t: (key: string) => string) => [
   {
-    label: "No Digital Edge",
-    description: " of small businesses don’t use any digital marketing",
-    value: " ",
+    label: t('stats.noDigitalEdge.title'),
+    description: t('stats.noDigitalEdge.desc'),
     percent: 40,
     source: "https://visualobjects.com/digital-marketing/blog/small-business-digital-marketing"
   },
   {
-    label: "Branding Matters",
-    description: " of small businesses surveyed show a lack of confidence in the effectiveness of their marketing strategy.",
-    value: " ",
+    label: t('stats.brandingMatters.title'),
+    description: t('stats.brandingMatters.desc'),
     percent: 73,
     source: "https://news.constantcontact.com/2024-04-23-New-Research-from-Constant-Contact-Reveals-Small-Businesses-Struggle-to-Market-Effectively-Due-to-Low-Confidence,-Limited-Time,-and-Lack-of-Knowledge"
   },
   {
-    label: "Website Impact",
-    description: "of U.S. Diners Say A Restaurant's Website Has Discouraged Them from Visiting",
-    value: " ",
+    label: t('stats.websiteImpact.title'),
+    description: t('stats.websiteImpact.desc'),
     percent: 70,
     source: "https://www.restaurantdive.com/news/77-of-diners-visit-restaurant-websites-before-going-survey-finds/562008/"
   },
   {
-      label: "Be Search Ready",
-      description: "of online experiences begin with a search engine.",
-      value: " ",
-      percent: 93,
-      source: "https://www.searchenginejournal.com/seo-101/what-is-seo/"
-    },
-  ];
-  
+    label: t('stats.searchReady.title'),
+    description: t('stats.searchReady.desc'),
+    percent: 93,
+    source: "https://www.searchenginejournal.com/seo-101/what-is-seo/"
+  }
+];
+
 const ProgressRing = ({ percentage }: { percentage: number }) => {
   const radius = 60;
   const stroke = 6;
@@ -77,20 +74,22 @@ const ProgressRing = ({ percentage }: { percentage: number }) => {
 };
 
 const HomeStats = () => {
+  const t = useTranslation();
+
   return (
     <div className="w-full my-10 space-y-10">
       {/* Section Title */}
       <div className="flex items-center w-full">
         <div className="flex-grow h-px bg-gray-300" />
         <h2 className="px-6 text-2xl font-bold tracking-wide text-gray-900 whitespace-nowrap">
-          Why Your Digital Footprint Matters
+          {t('stats.title')}
         </h2>
         <div className="flex-grow h-px bg-gray-300" />
       </div>
 
       <section className="px-6 py-6 bg-white">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat) => (
+          {stats(t).map((stat) => (
             <div
               key={stat.label}
               className="bg-white shadow rounded-lg p-6 text-center space-y-3 hover:shadow-xl transition-shadow duration-300"
@@ -99,7 +98,6 @@ const HomeStats = () => {
                 <ProgressRing percentage={stat.percent} />
               </div>
               <p className="text-xl text-gray-900 font-semibold">{stat.label}</p>
-              <p className="text-2xl font-extrabold text-red-800">{stat.value}</p>
               <p className="text-sm text-gray-500">{stat.description}</p>
               <a
                 href={stat.source}
@@ -107,7 +105,7 @@ const HomeStats = () => {
                 rel="noopener noreferrer"
                 className="text-xs text-orange-600 underline hover:text-red-600 block"
               >
-                Click for Source
+                {t('stats.sourceLink')}
               </a>
             </div>
           ))}

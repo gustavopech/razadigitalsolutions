@@ -1,6 +1,7 @@
 
 import type { Metadata } from "next";
 import HeroSection from '@/components/HeroSection';
+
 import Location from '@/components/Location';
 import ServiceMenu from '@/components/ServiceMenu';
 import HomeStats from '@/components/HomeStats';

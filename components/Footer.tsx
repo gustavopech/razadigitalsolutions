@@ -1,8 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslation } from '@/translation/LocaleContext';
 
 export default function Footer() {
+  const t = useTranslation();
+
   return (
     <footer className="bg-white">
       <div className="mx-auto max-w-screen-xl space-y-12 px-4 py-4 sm:px-6 lg:px-8">
@@ -13,7 +16,7 @@ export default function Footer() {
             </div>
 
             <p className="mt-4 text-gray-500 max-w-md mx-auto lg:mx-0">
-              Raza Digital empowers businesses with expert digital solutions. We help you make smarter digital decisions that drive results.
+              {t("footer.description")}
             </p>
 
             <ul className="mt-8 flex justify-center lg:justify-start gap-6">
@@ -39,36 +42,36 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center lg:text-left">
               <div>
-                <p className="font-medium text-gray-900">Services</p>
+                <p className="font-medium text-gray-900">{t("footer.sections.services")}</p>
                 <ul className="mt-6 space-y-2 text-sm">
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Marketing Campaigns</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Experience Management</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Workflow Optimization</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Web Development</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">SEO Optimisation</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("marketingCampaigns")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("experienceMgmt")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("automation")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("webDesign")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("seo")}</Link></li>
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-gray-900">Company</p>
+                <p className="font-medium text-gray-900">{t("footer.sections.company")}</p>
                 <ul className="mt-6 space-y-2 text-sm">
-                  <li><Link href="/about" className="text-gray-700 transition hover:opacity-75">About</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Meet the Team</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">FAQs</Link></li>
+                  <li><Link href="/about" className="text-gray-700 transition hover:opacity-75">{t("ourStory")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("footer.team")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("faq")}</Link></li>
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-gray-900">Helpful Links</p>
+                <p className="font-medium text-gray-900">{t("footer.sections.links")}</p>
                 <ul className="mt-6 space-y-2 text-sm">
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Contact</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">FAQs</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">Live Chat</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("contact")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("faq")}</Link></li>
+                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("footer.chat")}</Link></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <p className="text-xs text-gray-500 text-center">&copy; 2022. Company Name. All rights reserved.</p>
+        <p className="text-xs text-gray-500 text-center">&copy; 2024. Raza Digital. {t("footer.rights")}</p>
       </div>
     </footer>
   );
