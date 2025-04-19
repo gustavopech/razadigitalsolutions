@@ -12,7 +12,6 @@ type MenuItem = {
   href: string;
 };
 
-export default function Navbar() {
   const [openFlyout, setOpenFlyout] = useState<MenuKey | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { locale, setLocale } = useContext(LocaleContext);
