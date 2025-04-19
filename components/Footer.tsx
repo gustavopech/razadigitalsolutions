@@ -55,16 +55,14 @@ export default function Footer() {
                 <p className="font-medium text-gray-900">{t("footer.sections.company")}</p>
                 <ul className="mt-6 space-y-2 text-sm">
                   <li><Link href="/about" className="text-gray-700 transition hover:opacity-75">{t("ourStory")}</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("footer.team")}</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("faq")}</Link></li>
+
                 </ul>
               </div>
               <div>
                 <p className="font-medium text-gray-900">{t("footer.sections.links")}</p>
                 <ul className="mt-6 space-y-2 text-sm">
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("contact")}</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("faq")}</Link></li>
-                  <li><Link href="#" className="text-gray-700 transition hover:opacity-75">{t("footer.chat")}</Link></li>
+                  <li><Link href="mailto:info@razadigitalsolutions.com" className="text-gray-700 transition hover:opacity-75">{t("contact")}</Link></li>
+
                 </ul>
               </div>
             </div>

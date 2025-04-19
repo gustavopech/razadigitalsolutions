@@ -3,7 +3,7 @@
 import ServiceCard from '@/components/ServiceCard';
 import { useTranslation } from '@/translation/LocaleContext';
 
-import { Rocket, Globe, Paintbrush, Speech, Binary } from 'lucide-react';
+import { Rocket, Globe, Paintbrush, Speech, Binary, Bot } from 'lucide-react';
 
 export default function ServiceMenu() {
   const t = useTranslation();
@@ -37,7 +37,7 @@ export default function ServiceMenu() {
     {
       title: t('automation'),
       description: t('services.automationDesc'),
-      icon: <Rocket className="w-8 h-8 text-red-800" />,
+      icon: <Bot className="w-8 h-8 text-red-800" />,
     },
   ];
 

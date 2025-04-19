@@ -25,7 +25,7 @@ export default function Location() {
           </p>
 
           <a
-            href="/contact"
+            href="mailto:info@razadigitalsolutions.com"
             className="inline-block mt-2 rounded-md bg-red-800 px-6 py-3 text-white font-semibold hover:bg-red-700 transition"
           >
             {t('location.button')}

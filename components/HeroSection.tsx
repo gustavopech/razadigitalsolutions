@@ -20,11 +20,13 @@ const HeroSection = () => {
             {t('hero.description.line1')}<br />
             {t('hero.description.line2')}
           </p>
-
+          <a href="tel:+1234567890">
           <button className="block rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-600 transition">
             {t('hero.button')}
           </button>
+          </a>
         </div>
+
 
         {/* Right Column — align image to left */}
         <div className="flex justify-start items-center">
