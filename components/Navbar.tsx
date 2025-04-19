@@ -1,4 +1,5 @@
 'use client';
+
 import { useContext, useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +13,7 @@ type MenuItem = {
   href: string;
 };
 
+export default function Navbar() {
   const [openFlyout, setOpenFlyout] = useState<MenuKey | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { locale, setLocale } = useContext(LocaleContext);
@@ -104,7 +106,6 @@ type MenuItem = {
         <div className="flex items-center gap-4">
           <ConsultationModal />
 
-          {/* Language Toggle Button (Desktop) */}
           <button
             onClick={() => setLocale(locale === 'en' ? 'es' : 'en')}
             className="hidden rounded-md bg-stone-50 px-5 py-2.5 text-sm font-medium text-red-800 hover:text-red-700 md:block"
@@ -124,7 +125,6 @@ type MenuItem = {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMobileOpen && (
         <div className="px-4 pb-4 md:hidden">
           <ul className="space-y-3 text-base font-medium tracking-wide">
