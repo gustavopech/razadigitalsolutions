@@ -1,45 +1,170 @@
-import { Resend } from "resend";
-import { NextResponse } from "next/server";
+'use client';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/translation/LocaleContext';
 
-export async function POST(req: Request) {
-  const { name, email, date, time, message } = await req.json();
+export default function ConsultationModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    date: '',
+    time: '',
+    message: '',
+  });
 
-  try {
-    // 1. Send email to you
-    await resend.emails.send({
-      from: "Consultation Form <form@yourdomain.com>",
-      to: "your@email.com",
-      subject: "New Consultation Request",
-      html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
-        <p><strong>Message:</strong><br/>${message}</p>
-      `,
-    });
+  const t = useTranslation();
 
-    // 2. Confirmation email to the user
-    await resend.emails.send({
-      from: "Your Company <noreply@yourdomain.com>",
-      to: email,
-      subject: "Thanks for booking a consultation!",
-      html: `
-        <p>Hey ${name},</p>
-        <p>Thanks for booking a consultation. Here's what we got:</p>
-        <ul>
-          <li><strong>Date:</strong> ${date}</li>
-          <li><strong>Time:</strong> ${time}</li>
-        </ul>
-        <p>We'll follow up soon. Looking forward to chatting!</p>
-      `,
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Email error:", error);
-    return NextResponse.json({ error: "Email failed" }, { status: 500 });
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Sending form data...', formData);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+      console.log('API response:', result);
+
+      if (res.ok) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setIsOpen(false);
+          setFormData({ name: '', email: '', date: '', time: '', message: '' });
+        }, 3000);
+      } else {
+        console.error('Form submission failed:', result.error);
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="block rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-600 transition"
+      >
+        {t('consultation.openButton')}
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center min-h-screen bg-black/40 backdrop-blur-sm"
+            onClick={() => setIsOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h2 className="text-xl font-semibold mb-4">{t('consultation.title')}</h2>
+
+              {submitted ? (
+                <p className="text-green-600 font-medium">
+                  {t('consultation.successMessage') || 'Thank you! A confirmation email has been sent.'}
+                </p>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label className="block text-sm mb-1">{t('consultation.name')}</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border rounded"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="block text-sm mb-1">{t('consultation.email')}</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border rounded"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="block text-sm mb-1">{t('consultation.date')}</label>
+                    <input
+                      type="date"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border rounded"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="block text-sm mb-1">{t('consultation.time')}</label>
+                    <input
+                      type="time"
+                      name="time"
+                      value={formData.time}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border rounded"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm mb-1">{t('consultation.message')}</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border rounded"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                      className="px-4 py-2 border rounded"
+                    >
+                      {t('consultation.cancel')}
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-red-800 text-white rounded hover:bg-red-600"
+                    >
+                      {t('consultation.submit')}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }

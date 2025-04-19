@@ -1,46 +1,53 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTranslation } from "@/translation/LocaleContext";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/translation/LocaleContext';
 
 export default function ConsultationModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    date: "",
-    time: "",
-    message: "",
+    name: '',
+    email: '',
+    date: '',
+    time: '',
+    message: '',
   });
 
   const t = useTranslation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Sending form data...', formData);
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+
+      const result = await res.json();
+      console.log('API response:', result);
 
       if (res.ok) {
         setSubmitted(true);
         setTimeout(() => {
-          setIsOpen(false);
           setSubmitted(false);
-          setFormData({ name: "", email: "", date: "", time: "", message: "" });
+          setIsOpen(false);
+          setFormData({ name: '', email: '', date: '', time: '', message: '' });
         }, 3000);
+      } else {
+        console.error('Form submission failed:', result.error);
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Network error:', error);
     }
   };
 
@@ -50,7 +57,7 @@ export default function ConsultationModal() {
         onClick={() => setIsOpen(true)}
         className="block rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-600 transition"
       >
-        {t("consultation.openButton")}
+        {t('consultation.openButton')}
       </button>
 
       <AnimatePresence>
@@ -70,16 +77,16 @@ export default function ConsultationModal() {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <h2 className="text-xl font-semibold mb-4">{t("consultation.title")}</h2>
+              <h2 className="text-xl font-semibold mb-4">{t('consultation.title')}</h2>
 
               {submitted ? (
                 <p className="text-green-600 font-medium">
-                  {t("consultation.successMessage") || "Thank you! Confirmation sent to your email."}
+                  {t('consultation.successMessage') || 'Thank you! A confirmation email has been sent.'}
                 </p>
               ) : (
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                    <label className="block text-sm mb-1">{t("consultation.name")}</label>
+                    <label className="block text-sm mb-1">{t('consultation.name')}</label>
                     <input
                       type="text"
                       name="name"
@@ -91,7 +98,7 @@ export default function ConsultationModal() {
                   </div>
 
                   <div className="mb-3">
-                    <label className="block text-sm mb-1">{t("consultation.email")}</label>
+                    <label className="block text-sm mb-1">{t('consultation.email')}</label>
                     <input
                       type="email"
                       name="email"
@@ -103,7 +110,7 @@ export default function ConsultationModal() {
                   </div>
 
                   <div className="mb-3">
-                    <label className="block text-sm mb-1">{t("consultation.date")}</label>
+                    <label className="block text-sm mb-1">{t('consultation.date')}</label>
                     <input
                       type="date"
                       name="date"
@@ -115,7 +122,7 @@ export default function ConsultationModal() {
                   </div>
 
                   <div className="mb-3">
-                    <label className="block text-sm mb-1">{t("consultation.time")}</label>
+                    <label className="block text-sm mb-1">{t('consultation.time')}</label>
                     <input
                       type="time"
                       name="time"
@@ -127,7 +134,7 @@ export default function ConsultationModal() {
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm mb-1">{t("consultation.message")}</label>
+                    <label className="block text-sm mb-1">{t('consultation.message')}</label>
                     <textarea
                       name="message"
                       value={formData.message}
@@ -143,13 +150,13 @@ export default function ConsultationModal() {
                       onClick={() => setIsOpen(false)}
                       className="px-4 py-2 border rounded"
                     >
-                      {t("consultation.cancel")}
+                      {t('consultation.cancel')}
                     </button>
                     <button
                       type="submit"
                       className="px-4 py-2 bg-red-800 text-white rounded hover:bg-red-600"
                     >
-                      {t("consultation.submit")}
+                      {t('consultation.submit')}
                     </button>
                   </div>
                 </form>
