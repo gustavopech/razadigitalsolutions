@@ -9,8 +9,8 @@ export async function POST(req: Request) {
   try {
     // 1. Send email to you
     await resend.emails.send({
-      from: "Consultation Form <form@yourdomain.com>",
-      to: "your@email.com",
+      from: "Gustavo Pech <info@razadigitalsolutions.com>",
+      to: "gustavopech2000@gmail.com",
       subject: "New Consultation Request",
       html: `
         <p><strong>Name:</strong> ${name}</p>
